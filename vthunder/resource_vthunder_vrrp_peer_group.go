@@ -3,10 +3,11 @@ package vthunder
 //vThunder resource Vrrp peer group
 
 import (
-	"github.com/go_vthunder/vthunder"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"util"
 	"fmt"
+	"util"
+
+	go_vthunder "github.com/go_vthunder/vthunder"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func resourceVrrpPeerGroup() *schema.Resource {
@@ -85,7 +86,7 @@ func resourceVrrpPeerGroupRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(vThunder)
 
 	if client.Host != "" {
-		
+
 		name := d.Id()
 
 		vc, err := go_vthunder.GetVrrpPeerGroup(client.Token, client.Host)
@@ -120,8 +121,6 @@ func dataToVrrpPeerGroup(d *schema.ResourceData) go_vthunder.PeerGroup {
 
 	var c go_vthunder.PeerGroupInstance
 
-	c.UUID = d.Get("uuid").(string)
-
 	var peer go_vthunder.Peer
 
 	ip_count := d.Get("peer.0.ip_peer_address_cfg.#").(int)
@@ -133,7 +132,7 @@ func dataToVrrpPeerGroup(d *schema.ResourceData) go_vthunder.PeerGroup {
 		ip_cfg.IPPeerAddress = d.Get(prefix + ".ip_peer_address").(string)
 		peer.IPPeerAddress = append(peer.IPPeerAddress, ip_cfg)
 	}
-
+	c.IPPeerAddress = peer
 	vc.UUID = c
 
 	return vc

@@ -17,8 +17,6 @@ type ACLNameList struct {
 	ACLNameSeqNum           int    `json:"acl-name-seq-num,omitempty"`
 }
 
-
-
 type ACLIDList struct {
 	ACLIDSeqNum           int    `json:"acl-id-seq-num,omitempty"`
 	ACLIDSrcNatPool       string `json:"acl-id-src-nat-pool,omitempty"`
@@ -230,7 +228,7 @@ type VirtalServerInstanceMain struct {
 	Name VirtualServerMain `json:"virtual-server,omitempty"`
 }
 
-func GetVS(id string, name string, host string) (*VirtalServerInstanceMain,error) {
+func GetVS(id string, name string, host string) (*VirtalServerInstanceMain, error) {
 
 	logger := util.GetLoggerInstance()
 
@@ -244,18 +242,18 @@ func GetVS(id string, name string, host string) (*VirtalServerInstanceMain,error
 	if err != nil {
 		fmt.Printf("The HTTP request failed with error %s\n", err)
 		logger.Println("The HTTP request failed with error \n", err)
-		return nil,err
+		return nil, err
 	} else {
 		data, _ := ioutil.ReadAll(resp.Body)
 		var m VirtalServerInstanceMain
 		erro := json.Unmarshal(data, &m)
 		if erro != nil {
 			fmt.Printf("Unmarshal error %s\n", err)
-			return nil,err
+			return nil, err
 		} else {
 			fmt.Print(m)
 			logger.Println("[INFO] GET REQ RES..........................", m)
-			return &m,nil
+			return &m, nil
 		}
 	}
 }
@@ -297,7 +295,7 @@ func PostVS(id string, vs VirtalServerInstanceMain, host string) {
 
 }
 
-func PutVS(id string, name string, vs VirtalServerInstanceMain,host string) {
+func PutVS(id string, name string, vs VirtalServerInstanceMain, host string) {
 
 	logger := util.GetLoggerInstance()
 
@@ -363,4 +361,3 @@ func DeleteVS(id string, name string, host string) error {
 	}
 	return nil
 }
-

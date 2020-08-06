@@ -3,11 +3,12 @@ package vthunder
 //vThunder resource vrrp vrid
 
 import (
-	"github.com/go_vthunder/vthunder"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"util"
 	"fmt"
 	"strconv"
+	"util"
+
+	go_vthunder "github.com/go_vthunder/vthunder"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func resourceVrrpVrid() *schema.Resource {
@@ -492,11 +493,11 @@ func resourceVrrpVridUpdate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(vThunder)
 
 	if client.Host != "" {
-		name := d.Get("name").(string)
-		logger.Println("[INFO] Modifying vrrp vrid   (Inside resourceVrrpVridUpdate " + name)
+		name := d.Get("vrid_val").(int)
+		logger.Println("[INFO] Modifying vrrp vrid   (Inside resourceVrrpVridUpdate " + strconv.Itoa(name))
 		v := dataToVrrpVrid(d)
-		d.SetId(name)
-		go_vthunder.PutVrrpVrid(client.Token, name, v, client.Host)
+		d.SetId(strconv.Itoa(name))
+		go_vthunder.PutVrrpVrid(client.Token, strconv.Itoa(name), v, client.Host)
 
 		return resourceVrrpVridRead(d, meta)
 	}
@@ -532,8 +533,8 @@ func dataToVrrpVrid(d *schema.ResourceData) go_vthunder.VridInstance {
 	var vc go_vthunder.VridInstance
 
 	var v go_vthunder.Vrid
-
-	v.VridVal = d.Get("vrid_val").(int)
+	vrid_val := d.Get("vrid_val").(int)
+	v.VridVal = &vrid_val
 
 	var floating_ip go_vthunder.FloatingIP
 

@@ -1163,6 +1163,8 @@ func dataToVs(name string, d *schema.ResourceData) go_vthunder.VirtalServerInsta
 	for i := 0; i < portListCount; i++ {
 		var pl go_vthunder.PortList
 		prefix := fmt.Sprintf("port_list.%d", i)
+		pl.HaConnMirror = d.Get(prefix + "ha_conn_mirror").(int)
+		pl.OnSyn = d.Get(prefix + "on_syn").(int)
 		pl.Name = d.Get(prefix + ".name").(string)
 		pl.OptimizationLevel = d.Get(prefix + ".optimization_level").(string)
 		pl.Protocol = d.Get(prefix + ".protocol").(string)

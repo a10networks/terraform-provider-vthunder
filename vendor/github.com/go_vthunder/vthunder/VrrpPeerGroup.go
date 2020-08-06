@@ -22,8 +22,8 @@ type Peer struct {
 	Ipv6PeerAddress []Ipv6PeerAddressCfg `json:"ipv6-peer-address-cfg,omitempty"`
 }
 type PeerGroupInstance struct {
-	IPPeerAddressCfg Peer   `json:"peer,omitempty"`
-	UUID             string `json:"uuid,omitempty"`
+	IPPeerAddress Peer   `json:"peer,omitempty"`
+	UUID          string `json:"uuid,omitempty"`
 }
 
 func GetVrrpPeerGroup(id string, host string) (*PeerGroup, error) {
