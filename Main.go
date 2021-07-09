@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/plugin"
-	"terraform-provider-thunder/thunder"
+	"github.com/terraform-providers/terraform-provider-thunder/thunder"
 )
 
 func main() {

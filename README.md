@@ -15,8 +15,9 @@ This provider plugin is maintained by the Cloud team at [A10Networks](https://ww
 Requirements
 ------------
 
--	[Terraform](https://www.terraform.io/downloads.html) 0.10.x
--	[Go](https://golang.org/doc/install) 1.12 (to build the provider plugin)
+-	[Terraform](https://www.terraform.io/downloads.html) 1.0.x
+-	[Go](https://golang.org/doc/install) 1.16 (to build the provider plugin)
+
 
 Building The Provider
 ---------------------
@@ -32,6 +33,24 @@ Enter the provider directory and build the provider
 ```sh
 $ cd $GOPATH/src/github.com/terraform-providers/terraform-provider-thunder
 $ make build
+```
+
+## Local Plugin Installation
+
+Inside your cloned repo; here x.y.z is version example 0.4.5
+1. $ go build -o terraform-provider-thunder
+2. $ mkdir -p ~/.terraform.d/plugins/a10networks.com/a10networks/thunder/x.y.z/linux_amd64/
+3. $ cp terraform-provider-thunder ~/.terraform.d/plugins/a10networks.com/a10networks/thunder/x.y.z/linux_amd64/
+4. create version.tf file like:-
+```
+terraform {
+  required_providers {
+    thunder = {
+      source  = "a10networks.com/a10networks/thunder"
+      version = "x.y.z"
+    }
+  }
+}
 ```
 
 # Usage
@@ -188,3 +207,4 @@ Please submit bug reports and feature requests via GitHub issues. When reporting
 
 ## Contact
 If you have a question that cannot be submitted via Github Issues, please email support@a10networks.com with "a10-terraform-provider" in the subject line.
+

@@ -3,10 +3,10 @@ package thunder
 //Thunder resource InterfaceLifIp
 
 import (
+	"fmt"
 	"github.com/go_thunder/thunder"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"util"
-    "fmt"
 )
 
 func resourceInterfaceLifIp() *schema.Resource {

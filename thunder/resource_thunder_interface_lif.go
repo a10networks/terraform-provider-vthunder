@@ -1752,7 +1752,7 @@ func dataToInterfaceLif(d *schema.ResourceData) go_thunder.InterfaceLif {
 	prefix5 := "bfd.0."
 
 	var obj5_1 go_thunder.InterfaceAuthentication
-	prefix5_1 :=prefix5 + "authentication.0."
+	prefix5_1 := prefix5 + "authentication.0."
 	obj5_1.KeyID = d.Get(prefix5_1 + "key_id").(int)
 	obj5_1.Method = d.Get(prefix5_1 + "method").(string)
 	obj5_1.Password = d.Get(prefix5_1 + "password").(string)
